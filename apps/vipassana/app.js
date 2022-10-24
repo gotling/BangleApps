@@ -15,7 +15,7 @@ let settings;
 let theme;
 
 function loadSettings() {
-  settings = require("Storage").readJSON(SETTINGS_FILE,1)|| {'bg': '#0f0'};
+  settings = require("Storage").readJSON(SETTINGS_FILE,1)|| {'bg': '#0f0', 'fg': '#fff'};
 }
 
 const h = g.getHeight();
@@ -29,8 +29,6 @@ let batteryWarning = false;
 // clear the screen
 g.clear();
 
-var n = 0;
-
 // redraw the screen
 function draw() {
   let locale = require("locale");
@@ -38,7 +36,6 @@ function draw() {
   let dayOfWeek = locale.dow(date, 1).toUpperCase();
   let dayOfMonth = date.getDate();
   let time = locale.time(date, 1);
-  const t = 6;
 
   if (E.getBattery() < 30) {
     // turn the warning on once we have dipped below 30%
@@ -47,24 +44,41 @@ function draw() {
     // turn the warning off once we have dipped above 40%
     batteryWarning = false;
   }
-
+  
   g.reset();
-  g.setColor(settings.bg);
-  g.fillRect(0, 0, w, h2 - t);
+  let y = 16;
+  
+  // Date
+  g.setColor(settings.fg);
+  g.setFontLECO1976Regular22();
+  g.setFontAlign(0, 0);
+  g.drawString(dayOfWeek + ' ' + dayOfMonth, w/2, y);
 
   // Time
   g.setFontLECO1976Regular42();
   g.setFontAlign(0, -1);
-  g.drawString(time, w/2, h2 + 8);
+  g.drawString(time, w/2, y+=16, true);
+  
+  // Day of course
+  g.setColor(settings.bg);
+  g.fillRect(0, y+=50, w, y+30);
+  
+  g.setColor(settings.fg);
+  g.setFontLECO1976Regular22();
+  g.setFontAlign(0, 0);
+  g.drawString("DAY?", w/2, y+=18);
+  
+  // Current event
+  g.setFontAlign(0, 0);
+  g.drawString("00:00", w/2, y+=34);
+
+  g.drawString("MEDITATE", w/2, y+=22);
 }
 
 Bangle.setUI("clock");
 
 g.clear();
-Bangle.loadWidgets();
-
 
 loadSettings();
 setInterval(draw, 15000); // refresh every 15s, decrease to once per minute
 draw();
-Bangle.drawWidgets();
