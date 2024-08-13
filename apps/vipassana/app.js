@@ -2,13 +2,13 @@ require("FontTeletext5x9Ascii").add(Graphics);
 require('DateExt');
 //var lib = require("lib.js");
 
-let clock = {
-  hours: '',
-  minutes: '',
-  weekday: '',
-  date: '',
-  month: ''
-};
+// let clock = {
+//   hours: '',
+//   minutes: '',
+//   weekday: '',
+//   date: '',
+//   month: ''
+// };
 
 let vipassana = {
   last_update: undefined,
@@ -153,9 +153,9 @@ Date.prototype.addMinutes = function(minutes) {
   return date; // Date object
 }
 
-function getWeekDay(day) {
-  return weekdays[day];
-}
+// function getWeekDay(day) {
+//   return weekdays[day];
+// }
 
 function getIsoDate(date) {
   return new Date(date.toISOString().substring(0, 10));
@@ -300,11 +300,11 @@ if (vipassana.last_update === undefined) {
 var calculationInterval;
 
 // schedule a draw for the next minute
-calculationInterval = setInterval(function() {
-  let date = new Date();
-  vipassana.now = currentActivityIndex(date);
-  vipassana.next = nextActivityIndex(date);
-}, 60000 - (Date.now() % 60000));
+// calculationInterval = setInterval(function() {
+//   let date = new Date();
+//   vipassana.now = currentActivityIndex(date);
+//   vipassana.next = nextActivityIndex(date);
+// }, 60000 - (Date.now() % 60000));
 
 // place your const, vars, functions or classes here
 
