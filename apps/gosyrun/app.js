@@ -1,11 +1,10 @@
 require("FontTeletext5x9Ascii").add(Graphics);
-require('DateExt');
 
 const TIME_TABLE = [
   [{pace: '05:00'}, {pace: '05:00'}, {pace: '05:10'}, {pace: '05:00'}, {pace: '05:30'}],
   [{pace: '04:00'}, {pace: '04:20'}, {pace: '04:20'}, {pace: '04:20'}, {pace: '04:00'}],
-  [{pace: '06:00'}, {pace: '04:20'}, {pace: '03:20'}, {pace: '04:20'}, {pace: '04:00'}],
-]
+  [{pace: '06:00'}, {pace: '04:20'}, {pace: '03:20'}, {pace: '04:20'}, {pace: '04:00'}]
+];
 
 function getTimeTable(km) {
   return TIME_TABLE[km];
@@ -123,5 +122,5 @@ Bangle.setUI({mode: "updown"}, function(dir) {
 draw();
 
 // Load widgets
-Bangle.loadWidgets();
-Bangle.drawWidgets();
+// Bangle.loadWidgets();
+// Bangle.drawWidgets();

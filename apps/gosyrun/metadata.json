@@ -1,6 +1,6 @@
 { "id": "gosyrun",
   "name": "GoSy Run",
-  "shortName": "GoSy Run",
+  "shortName": "GoSyRun",
   "version": "0.1",
   "description": "A run trainer",
   "screenshots": [{"url":"screenshot.png"}],
@@ -8,8 +8,6 @@
   "supports" : ["BANGLEJS2"],  
   "readme": "README.md",
   "allow_emulator": true,
-  "type": "app",
-  "tags": "outdoors,exercise",
   "storage": [
     {"name":"gosy.app.js","url":"app.js"},
     {"name":"gosy.img","url":"app-icon.js","evaluate":true},
