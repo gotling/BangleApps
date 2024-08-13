@@ -152,7 +152,7 @@ function zoom(statID) {
       .setColor(headingCol)
       .drawString('TEST', R.x+R.w/2, R.y+R.h/3)
       .setColor(g.theme.fg)
-      .drawString('test', R.x+R.w/2, R.y+R.h*2/3);
+      .drawString(value, R.x+R.w/2, R.y+R.h*2/3);
   };
   layout.lazy = false; // restored when we go back to "main"
 

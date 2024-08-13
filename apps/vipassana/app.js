@@ -1,3 +1,311 @@
+require("FontTeletext5x9Ascii").add(Graphics);
+require('DateExt');
+//var lib = require("lib.js");
+
+let clock = {
+  hours: '',
+  minutes: '',
+  weekday: '',
+  date: '',
+  month: ''
+};
+
+let vipassana = {
+  last_update: undefined,
+  day: -1,
+  now: 0,
+  next: 1,
+  nextCourse: -1
+}
+
+let batteryWarning = false;
+
+// Lib - Try to move to separate file
+
+
+let courses = [
+  '2022-10-19',
+  '2022-11-02',
+  '2022-11-16'
+];
+
+var timetable = {
+  "-1": [
+    {time: 555, text: "Chanting"},
+    {time: 630, text: "Breakfast"},
+    {time: 700, text: "Meeting"},
+    {time: 730, text: "Group sitting"},
+    {time: 830, text: "Work Period"},
+    {time: 1200, text: "Lunch"},
+    {time: 1300, text: "Rest"},
+    {time: 1430, text: "Group sitting"},
+    {time: 1530, text: "Work Period"},
+    {time: 1800, text: "Dinner"},
+    {time: 1930, text: "Group Sitting"},
+    {time: 2030, text: "Metta"},
+    {time: 2200, text: "Lights out"}
+  ],
+  "0": [
+    {time: 555, text: "Chanting"},
+    {time: 630, text: "Breakfast"},
+    {time: 700, text: "Meeting"},
+    {time: 730, text: "Group sitting"},
+    {time: 830, text: "Prepare Kitchen"},
+    {time: 1030, text: "Prepare Registration"},
+    {time: 1100, text: "Lunch"},
+    {time: 1300, text: "Group Sitting"},
+    {time: 1400, text: "Registration"},
+    {time: 1430, text: "Food Preparations"},
+    {time: 1530, text: "Kitchen Meeting"},
+    {time: 1800, text: "Dinner"},
+    {time: 1900, text: "Information"},
+    {time: 2000, text: "Course Starts"},
+    {time: 2200, text: "Lights out"}
+  ],
+  "1": [
+    {time: 400, text: "Wake up"},
+    {time: 430, text: "Meditation"},
+    {time: 630, text: "Breakfast"},
+    {time: 800, text: "Group sitting"},
+    {time: 900, text: "Meditation"},
+    {time: 1100, text: "Lunch"},
+    {time: 1200, text: "Interviews"},
+    {time: 1300, text: "Meditation"},
+    {time: 1430, text: "Group sitting"},
+    {time: 1530, text: "Meditation"},
+    {time: 1700, text: "Tea"},
+    {time: 1800, text: "Group sitting"},
+    {time: 1900, text: "Discourse"},
+    {time: 2015, text: "Group sitting"},
+    {time: 2100, text: "Questions"},
+    {time: 2200, text: "Lights out"}
+  ],
+  "4": [
+    {time: 400, text: "Wake up"},
+    {time: 430, text: "Meditation"},
+    {time: 630, text: "Breakfast"},
+    {time: 800, text: "Group sitting"},
+    {time: 900, text: "Meditation"},
+    {time: 1100, text: "Lunch"},
+    {time: 1200, text: "Interviews"},
+    {time: 1300, text: "Meditation"},
+    {time: 1400, text: "Group sitting"},
+    {time: 1500, text: "Vipassana Teaching"},
+    {time: 1700, text: "Tea"},
+    {time: 1800, text: "Group sitting"},
+    {time: 1900, text: "Discourse"},
+    {time: 2015, text: "Group sitting"},
+    {time: 2100, text: "Questions"},
+    {time: 2200, text: "Lights out"}
+  ],
+  "10": [
+    {time: 400, text: "Wake up"},
+    {time: 430, text: "Meditation"},
+    {time: 630, text: "Breakfast"},
+    {time: 800, text: "Group sitting"},
+    {time: 900, text: "Meditation"},
+    {time: 1010, text: "Noble Silence ends"},
+    {time: 1100, text: "Lunch"},
+    {time: 1200, text: "Interviews"},
+    {time: 1300, text: "Rest"},
+    {time: 1430, text: "Group sitting"},
+    {time: 1550, text: "Rest"},
+    {time: 1600, text: "Information"},
+    {time: 1700, text: "Dinner"},
+    {time: 1800, text: "Group sitting"},
+    {time: 1900, text: "Discourse"},
+    {time: 2015, text: "Rest"},
+    {time: 2200, text: "Lights out"}
+  ],
+  "11": [
+    {time: 400, text: "Wake up"},
+    {time: 430, text: "Group Sitting"},
+    {time: 630, text: "Cleaning"},
+    {time: 700, text: "Breakfast"},
+    {time: 730, text: "Cleaning"},
+    {time: 850, text: "Bus Leaves"},
+    {time: 915, text: "Meeting"},
+    {time: 1000, text: "Group Sitting"},
+    {time: 1100, text: "Work Period"},
+    {time: 1200, text: "Lunch"},
+    {time: 1300, text: "Rest"},
+    {time: 1430, text: "Group sitting"},
+    {time: 1530, text: "Work Period"},
+    {time: 1800, text: "Dinner"},
+    {time: 1930, text: "Group sitting"},
+    {time: 2030, text: "Metta"},
+    {time: 2200, text: "Lights out"}
+  ]
+};
+
+
+var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
+
+Date.prototype.addMinutes = function(minutes) {
+  var date = new Date(this.valueOf());
+  date.setMinutes(date.getMinutes() + minutes); // timestamp
+  return date; // Date object
+}
+
+function getWeekDay(day) {
+  return weekdays[day];
+}
+
+function getIsoDate(date) {
+  return new Date(date.toISOString().substring(0, 10));
+}
+
+function diffDates(date1, date2) {
+  var diffTime = Math.abs(date2 - date1);
+  return Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+}
+
+function getCourseDay(date) {
+  date = getIsoDate(date);
+  
+  if ((date < new Date(courses[0])) || (date > new Date(courses[courses.length-1]).addDays(11))) {
+    return -1;
+  }
+
+  for (var i = 0; i < courses.length; i++) {
+    var start = new Date(courses[i]);
+    var end = new Date(courses[i]).addDays(11);
+    if ((date >= start) && (date <= end)) {
+      return diffDates(date, start);
+    }
+  }
+
+  return -1;
+}
+
+function getNextCourseIndex(date) {
+  date = getIsoDate(date);
+
+  if (date > new Date(courses[courses.length-1]).addDays(11)) {
+    // No new courses configured
+    return -1;
+  }
+
+  for (var i = 0; i < courses.length; i++) {
+    var start = new Date(courses[i]);
+    if (date < start) {
+      // First course
+      if (i == 0) {
+        return i;
+      }
+
+      var lastEnd = new Date(courses[i-1]).addDays(11);
+      if (date > lastEnd) {
+        return i;
+      }
+    }
+  }
+
+  return -1;
+}
+
+function getTimeTable(day) {
+  day = "" + day;
+  
+  if (day in timetable) {
+    return timetable[day];
+  }
+
+  if (day == 12) {
+    return timetable["-1"];
+  }
+
+  return timetable["1"];
+}
+
+function timeAsString(date) {
+  let hours = date.getHours().toString().padStart(2, '0');
+  let minutes = date.getMinutes().toString().padStart(2, '0');
+  return hours + minutes;
+}
+
+function currentActivityIndex(date) {
+  date = date.addMinutes(5);
+  let hm = timeAsString(date);
+  var time = parseInt(hm, 10);
+
+  var timetable = getTimeTable(vipassana.day);
+
+  if ((time < timetable[0].time) || (time >= timetable[timetable.length - 1].time)) {
+    return timetable.length - 1;
+  }
+
+  for (var i = 0; i < timetable.length; i++) {
+    if (time < timetable[i].time) {
+      return i-1;
+    }
+  }
+
+  return timetable.length - 1;
+}
+
+function nextActivityIndex(date) {
+  var timetable = getTimeTable(vipassana.day);
+
+  var currentIndex = currentActivityIndex(date);
+
+  if (currentIndex == timetable.length - 1) {
+    return 0;
+  }
+
+  return currentIndex + 1;
+}
+
+// Expects time as a number, 930 = 9:30, 1430 = 14:30
+function formatTime(number) {
+  var string = '' + number;
+
+  if (string.length < 4) {
+    string = '0' + string;
+  }
+
+  return string.substr(0, 2) + ':' + string.substr(2, 2);
+}
+
+// Calculations
+function heavyCalculations() {
+  // Heavy calculation
+  let date = new Date();
+  vipassana.day = getCourseDay(date);
+
+  if (vipassana.day == -1) {
+    vipassana.nextCourse = getNextCourseIndex(date);
+  }
+  console.log('Heavy Calc', vipassana);
+  vipassana.last_update = getIsoDate(date);
+}
+
+Bangle.on('midnight', heavyCalculations);
+
+if (vipassana.last_update === undefined) {
+  heavyCalculations();
+  let date = new Date();
+  vipassana.now = currentActivityIndex(date);
+  vipassana.next = nextActivityIndex(date);
+}
+
+
+// timeout used to update every minute
+var calculationInterval;
+
+// schedule a draw for the next minute
+calculationInterval = setInterval(function() {
+  let date = new Date();
+  vipassana.now = currentActivityIndex(date);
+  vipassana.next = nextActivityIndex(date);
+}, 60000 - (Date.now() % 60000));
+
 // place your const, vars, functions or classes here
 
 Graphics.prototype.setFontLECO1976Regular42 = function(scale) {
@@ -12,67 +320,125 @@ Graphics.prototype.setFontLECO1976Regular22 = function(scale) {
 
 const SETTINGS_FILE = "vipassana.json";
 let settings;
-let theme;
 
 function loadSettings() {
-  settings = require("Storage").readJSON(SETTINGS_FILE,1)|| {'bg': '#0f0', 'fg': '#fff'};
+  settings = 
+  require("Storage").readJSON(SETTINGS_FILE,1)|| {'bg': '#0d0', 'fg': '#fff'};
 }
+
+
+// An object to cache our date & time values,
+// to minimize computations in the draw handler.
 
 const h = g.getHeight();
 const w = g.getWidth();
-const ha = 2*h/5 - 4;
-const h2 = 3*h/5 - 10;
-const h3 = 7*h/8;
+const middleBarHeight = 28;
+const middleBarStart = h/2-middleBarHeight/2 + 2;
+const lowerStart = middleBarStart + middleBarHeight + 16;
 
-let batteryWarning = false;
+function drawLock() {
+  if (lowBattery())
+    g.setBgColor('#f00');
+  else
+    g.setBgColor('#0f0');
+  
+  g.setColor('#000');
+  
+  if (Bangle.isLocked()){
+    g.drawImage(atob("DhABH+D/wwMMDDAwwMf/v//4f+H/h/8//P/z///f/g=="), w-20, middleBarStart + 6);
+  } else {
+    g.setColor('#f00');
+    g.fillRect(w-20, middleBarStart, w, middleBarStart + 28);
+  }
+  g.setBgColor('#000');
+}
+
+Bangle.on('lock', function(on) {
+  drawLock();
+});
+
+function lowBattery() {
+  if (E.getBattery() < 30) {
+    batteryWarning = true;
+    return true;
+  } else if (E.getBattery() > 40) {
+    batteryWarning = false;
+  }
+  return batteryWarning;
+}
 
 // clear the screen
 g.clear();
 
-// redraw the screen
+// redraw the screenay
 function draw() {
-  let locale = require("locale");
   let date = new Date();
-  let dayOfWeek = locale.dow(date, 1).toUpperCase();
+
+  if (vipassana.last_update != getIsoDate(date)) {
+    heavyCalculations();
+  }
+
+  let locale = require("locale");
+  let dayOfWeek = locale.dow(date).toUpperCase();
   let dayOfMonth = date.getDate();
   let time = locale.time(date, 1);
 
-  if (E.getBattery() < 30) {
-    // turn the warning on once we have dipped below 30%
-    batteryWarning = true;
-  } else if (E.getBattery() > 40) {
-    // turn the warning off once we have dipped above 40%
-    batteryWarning = false;
-  }
-  
+  g.clear();
+
   g.reset();
-  let y = 16;
   
   // Date
   g.setColor(settings.fg);
   g.setFontLECO1976Regular22();
   g.setFontAlign(0, 0);
-  g.drawString(dayOfWeek + ' ' + dayOfMonth, w/2, y);
+  g.drawString(dayOfWeek + ' ' + dayOfMonth, w/2, 16);
 
   // Time
   g.setFontLECO1976Regular42();
   g.setFontAlign(0, -1);
-  g.drawString(time, w/2, y+=16, true);
+  g.drawString(time, w/2, 28, true);
   
-  // Day of course
-  g.setColor(settings.bg);
-  g.fillRect(0, y+=50, w, y+30);
+  // Day of course / Middle bar
+  if (lowBattery())
+    g.setColor('#f00');
+  else
+    g.setColor('#0f0');
+  g.fillRect(0, middleBarStart, w, middleBarStart+middleBarHeight);
   
-  g.setColor(settings.fg);
-  g.setFontLECO1976Regular22();
+  
+  g.setColor('#000');
   g.setFontAlign(0, 0);
-  g.drawString("DAY?", w/2, y+=18);
+  //g.setFont("Teletext5x9Ascii", 2);
+  g.setFont("6x8", 3);
+  let dayString;
+  if (vipassana.day == -1) {
+    dayString = 'Metta';
+  } else {
+    dayString = 'Day ' + vipassana.day;
+  }
+
+  g.drawString(dayString, w / 2, middleBarStart+14);
+
+  var timetable = getTimeTable(vipassana.day);
   
   // Current event
-  g.setFontAlign(0, 0);
-  g.drawString("00:00", w/2, y+=34);
+  g.setColor(settings.fg);
+  g.setFontAlign(-1, 0);
+  g.setFont("6x8", 2);
+  g.drawString(formatTime(timetable[vipassana.now].time) + ' ' + timetable[vipassana.now].text, 0, lowerStart + 4);
 
-  g.drawString("MEDITATE", w/2, y+=22);
+  //g.drawString(, w/2, lowerStart + 20);
+
+
+  // Next event
+  //g.setFont("Teletext5x9Ascii");
+  g.setFontAlign(-1, 0);
+  if (vipassana.next == 0) {
+    timetable = getTimeTable(vipassana.day + 1);
+  }
+  g.drawString(formatTime(timetable[vipassana.next].time) + ' ' + timetable[vipassana.next].text, 0, lowerStart + 32);
+
+  drawLock();
 }
 
 Bangle.setUI("clock");
@@ -80,5 +446,6 @@ Bangle.setUI("clock");
 g.clear();
 
 loadSettings();
-setInterval(draw, 15000); // refresh every 15s, decrease to once per minute
+setInterval(draw, 50000); // refresh every 15s, decrease to once per minute
 draw();
+
