@@ -139,7 +139,7 @@ var timetable = {
 };
 
 
-var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 Date.prototype.addDays = function(days) {
   var date = new Date(this.valueOf());
@@ -297,7 +297,7 @@ if (vipassana.last_update === undefined) {
 
 
 // timeout used to update every minute
-var calculationInterval;
+// var calculationInterval;
 
 // schedule a draw for the next minute
 // calculationInterval = setInterval(function() {
