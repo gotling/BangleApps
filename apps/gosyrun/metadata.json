@@ -8,6 +8,8 @@
   "supports" : ["BANGLEJS2"],  
   "readme": "README.md",
   "allow_emulator": true,
+  "type": "app",
+  "tags": "outdoors,exercise",
   "storage": [
     {"name":"gosy.app.js","url":"app.js"},
     {"name":"gosy.img","url":"app-icon.js","evaluate":true},
