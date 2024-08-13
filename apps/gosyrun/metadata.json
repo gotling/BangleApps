@@ -1,0 +1,16 @@
+{ "id": "gosyrun",
+  "name": "GoSy Run",
+  "shortName": "GoSy Run",
+  "version": "0.1",
+  "description": "A run trainer",
+  "screenshots": [{"url":"screenshot.png"}],
+  "icon": "app.png",
+  "supports" : ["BANGLEJS2"],  
+  "readme": "README.md",
+  "allow_emulator": true,
+  "storage": [
+    {"name":"gosy.app.js","url":"app.js"},
+    {"name":"gosy.img","url":"app-icon.js","evaluate":true},
+    {"name":"gosy.lib.js","url":"lib.js"}
+  ]
+}
