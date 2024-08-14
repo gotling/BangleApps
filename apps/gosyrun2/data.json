@@ -1,0 +1,308 @@
+[
+  {
+    "distance": 0,
+    "challange": 2,
+    "pace": "05:00",
+    "time": "00:00"
+  },
+  {
+    "distance": 0.2,
+    "challange": 2,
+    "pace": "05:00",
+    "time": "01:00"
+  },
+  {
+    "distance": 0.4,
+    "challange": 2,
+    "pace": "05:00",
+    "time": "02:00"
+  },
+  {
+    "distance": 0.6,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "03:00"
+  },
+  {
+    "distance": 0.8,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "03:57"
+  },
+  {
+    "distance": 1,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "04:48"
+  },
+  {
+    "distance": 1.2,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "05:39"
+  },
+  {
+    "distance": 1.4,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "06:30"
+  },
+  {
+    "distance": 1.6,
+    "challange": -2,
+    "pace": "04:00",
+    "time": "07:21"
+  },
+  {
+    "distance": 1.8,
+    "challange": -2,
+    "pace": "04:00",
+    "time": "08:09"
+  },
+  {
+    "distance": 2,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "08:57"
+  },
+  {
+    "distance": 2.2,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "09:48"
+  },
+  {
+    "distance": 2.4,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "10:39"
+  },
+  {
+    "distance": 2.6,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "11:30"
+  },
+  {
+    "distance": 2.8,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "12:21"
+  },
+  {
+    "distance": 3,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "13:12"
+  },
+  {
+    "distance": 3.2,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "14:09"
+  },
+  {
+    "distance": 3.4,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "15:06"
+  },
+  {
+    "distance": 3.6,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "16:00"
+  },
+  {
+    "distance": 3.8,
+    "challange": 2,
+    "pace": "05:00",
+    "time": "16:57"
+  },
+  {
+    "distance": 4,
+    "challange": 3,
+    "pace": "05:15",
+    "time": "17:57"
+  },
+  {
+    "distance": 4.2,
+    "challange": 4,
+    "pace": "05:30",
+    "time": "19:00"
+  },
+  {
+    "distance": 4.4,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "20:06"
+  },
+  {
+    "distance": 4.6,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "21:03"
+  },
+  {
+    "distance": 4.8,
+    "challange": -2,
+    "pace": "04:00",
+    "time": "21:54"
+  },
+  {
+    "distance": 5,
+    "challange": -2,
+    "pace": "04:00",
+    "time": "22:42"
+  },
+  {
+    "distance": 5.2,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "23:30"
+  },
+  {
+    "distance": 5.4,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "24:21"
+  },
+  {
+    "distance": 5.6,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "25:15"
+  },
+  {
+    "distance": 5.8,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "26:06"
+  },
+  {
+    "distance": 6,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "26:57"
+  },
+  {
+    "distance": 6.2,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "27:51"
+  },
+  {
+    "distance": 6.4,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "28:45"
+  },
+  {
+    "distance": 6.6,
+    "challange": -2,
+    "pace": "04:00",
+    "time": "29:36"
+  },
+  {
+    "distance": 6.8,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "30:24"
+  },
+  {
+    "distance": 7,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "31:18"
+  },
+  {
+    "distance": 7.2,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "32:15"
+  },
+  {
+    "distance": 7.4,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "33:12"
+  },
+  {
+    "distance": 7.6,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "34:03"
+  },
+  {
+    "distance": 7.8,
+    "challange": 1,
+    "pace": "04:45",
+    "time": "35:00"
+  },
+  {
+    "distance": 8,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "35:57"
+  },
+  {
+    "distance": 8.2,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "36:51"
+  },
+  {
+    "distance": 8.4,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "37:45"
+  },
+  {
+    "distance": 8.6,
+    "challange": 2,
+    "pace": "05:00",
+    "time": "38:36"
+  },
+  {
+    "distance": 8.8,
+    "challange": 2,
+    "pace": "05:00",
+    "time": "39:36"
+  },
+  {
+    "distance": 9,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "40:36"
+  },
+  {
+    "distance": 9.2,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "41:30"
+  },
+  {
+    "distance": 9.4,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "42:21"
+  },
+  {
+    "distance": 9.6,
+    "challange": -1,
+    "pace": "04:15",
+    "time": "43:12"
+  },
+  {
+    "distance": 9.8,
+    "challange": 0,
+    "pace": "04:30",
+    "time": "44:03"
+  },
+  {
+    "distance": 10,
+    "challange": -1,
+    "pace": "04:30",
+    "time": "44:57"
+  }
+]
