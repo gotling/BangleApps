@@ -46,8 +46,6 @@ dirs.forEach(dir => {
   var appsFile;
   if (dir.name.startsWith("_example") || !dir.isDirectory())
     return;
-  if (!dir.name.startsWith("gosyrun") || !dir.isDirectory())
-    return;
   try {
     appsFile = fs.readFileSync(APPSDIR+dir.name+"/metadata.json").toString();
   } catch (e) {
