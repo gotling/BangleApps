@@ -29,11 +29,6 @@ const middleBarHeight = 28;
 const middleBarStart = h/2-middleBarHeight/2 + 2;
 
 function drawLock() {
-  if (lowBattery())
-    g.setBgColor('#f00');
-  else
-    g.setBgColor('#0f0');
-  
   g.setColor('#000');
   
   if (Bangle.isLocked()){
@@ -42,7 +37,6 @@ function drawLock() {
     g.setColor('#f00');
     g.fillRect(w-20, middleBarStart, w, middleBarStart + 28);
   }
-  g.setBgColor('#000');
 }
 
 Bangle.on('lock', function(on) {
