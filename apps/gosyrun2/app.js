@@ -1,10 +1,15 @@
 require("FontTeletext5x9Ascii").add(Graphics);
 
+const h = g.getHeight();
+const w = g.getWidth();
+
 const TIME_TABLE = [
   [{pace: '05:00'}, {pace: '05:00'}, {pace: '05:10'}, {pace: '05:00'}, {pace: '05:30'}],
   [{pace: '04:00'}, {pace: '04:20'}, {pace: '04:20'}, {pace: '04:20'}, {pace: '04:00'}],
   [{pace: '06:00'}, {pace: '04:20'}, {pace: '03:20'}, {pace: '04:20'}, {pace: '04:00'}]
 ];
+
+var km = 0;
 
 function getTimeTable(km) {
   return TIME_TABLE[km];
@@ -23,19 +28,14 @@ Graphics.prototype.setFontLECO1976Regular22 = function(scale) {
 // An object to cache our date & time values,
 // to minimize computations in the draw handler.
 
-const h = g.getHeight();
-const w = g.getWidth();
-const middleBarHeight = 28;
-const middleBarStart = h/2-middleBarHeight/2 + 2;
-
 function drawLock() {
-  g.setColor('#000');
+  g.setColor('#fff');
   
   if (Bangle.isLocked()){
-    g.drawImage(atob("DhABH+D/wwMMDDAwwMf/v//4f+H/h/8//P/z///f/g=="), w-20, middleBarStart + 6);
+    g.drawImage(atob("DhABH+D/wwMMDDAwwMf/v//4f+H/h/8//P/z///f/g=="), w-20, h/2);
   } else {
-    g.setColor('#f00');
-    g.fillRect(w-20, middleBarStart, w, middleBarStart + 28);
+    //g.setColor('#000');
+    g.fillRect(w-20, h/2, 2, h/2 + 28);
   }
 }
 
@@ -51,63 +51,43 @@ let settings = {'bg': '#0d0', 'fg': '#fff'};
 // redraw the screenay
 function draw() {
   g.clear();
-
-  g.reset();
   
-  // Date
-  // g.setColor(settings.fg);
-  // g.setFontLECO1976Regular22();
-  // g.setFontAlign(0, 0);
-  // g.drawString(dayOfWeek + ' ' + dayOfMonth, w/2, 16);
-
+  g.setColor(settings.fg);
+  
   // Time
   g.setFontLECO1976Regular42();
   g.setFontAlign(0, -1);
-  g.drawString(km + ' km', w/2, 28, true);
+  g.drawString('km ' + km, w/2, 21);
   
   var timeTable = getTimeTable(km);
   
+  g.setFontLECO1976Regular22();
+  g.setFontAlign(0, 0);
+  
   let y = 48;
   for (let entry in timeTable) {
-    g.setColor(settings.fg);
-    g.setFontLECO1976Regular22();
-    g.setFontAlign(0, 0);
     g.drawString(entry.pace, 0, y);
     y += 22;
   }
 
-  // Current event
-  // g.setColor(settings.fg);
-  // g.setFontAlign(-1, 0);
-  // g.setFont("6x8", 2);
-  // g.drawString(formatTime(timetable[vipassana.now].time) + ' ' + timetable[vipassana.now].text, 0, lowerStart + 4);
-
-  //g.drawString(, w/2, lowerStart + 20);
-
-  drawLock();
+  //drawLock();
 }
-
-//setInterval(draw, 10000); // refresh every 15s, decrease to once per minute
 
 // clear the screen
 g.clear();
 
-var km = 0;
-
 // Respond to user input
 Bangle.setUI({mode: "updown"}, function(dir) {
-  if (dir<0) {
+  console.log(dir, km);
+  if (dir > 0) {
     km--;
     if (km < 0)
       km = 0;
     draw();
-  } else if (dir>0) {
+  } else if (dir < 0) {
     km++;
     if (km > 2)
       km = 2;
-    draw();
-  } else {
-    km = 0;
     draw();
   }
 });
