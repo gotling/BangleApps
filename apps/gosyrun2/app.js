@@ -366,8 +366,8 @@ Bangle.on('lock', function(on) {
   drawLock();
 });
 
-let slopeX = w-74;
-let slopeY = h/2+4;
+let slopeX = 70;
+let slopeY = h-72;
 
 function setSlopeColor(challange) {
   if (Math.abs(challange) == 1)
@@ -386,32 +386,30 @@ function drawSlope(challange) {
     if (challange > 0) {
       g.setColor('#fff');
       g.fillPoly([
-        slopeX+42, slopeY+6,
-        slopeX+4, slopeY+14,
-        slopeX+34, slopeY+44
+        slopeX, slopeY+24,
+        slopeX+48, slopeY+24,
+        slopeX+48, slopeY
       ]);
 
       setSlopeColor(challange);
       g.fillPoly([
-        slopeX+40, slopeY+8,
-        slopeX+8, slopeY+16,
-        slopeX+26, slopeY+22,
-        slopeX+32, slopeY+40
+        slopeX+8, slopeY+22,
+        slopeX+46, slopeY+22,
+        slopeX+46, slopeY+4,
       ]);
     } else {
       g.setColor('#fff');
       g.fillPoly([
-        slopeX+42, slopeY+42, //3
-        slopeX+4, slopeY+34, // 1
-        slopeX+34, slopeY+4 //2
+        slopeX, slopeY,
+        slopeX, slopeY+24,
+        slopeX+48, slopeY+24
       ]);
 
       setSlopeColor(challange);
       g.fillPoly([
-        slopeX+40, slopeY+40, // 4
-        slopeX+8, slopeY+32, // 1
-        slopeX+26, slopeY+26, // 2
-        slopeX+32, slopeY+8  // 3
+        slopeX+2, slopeY+4,
+        slopeX+2, slopeY+22,
+        slopeX+40, slopeY+22,
       ]);
     }
   }

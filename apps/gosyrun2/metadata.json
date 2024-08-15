@@ -1,7 +1,7 @@
 { "id": "gosyrun2",
   "name": "GoSy Run",
   "shortName":"GoSy Run",
-  "version":"0.1",
+  "version":"0.2",
   "description": "Run training",
   "icon": "app.png",
   "tags": "",
