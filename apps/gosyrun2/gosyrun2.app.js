@@ -2,7 +2,6 @@ require("FontTeletext5x9Ascii").add(Graphics);
 
 const h = g.getHeight();
 const w = g.getWidth();
-
 const TIME_TABLE = [
   {
     "distance": 0,
@@ -14,19 +13,19 @@ const TIME_TABLE = [
     "distance": 0.2,
     "challange": 2,
     "pace": "05:00",
-    "time": "01:00"
+    "time": "00:10"
   },
   {
     "distance": 0.4,
     "challange": 2,
     "pace": "05:00",
-    "time": "02:00"
+    "time": "00:20"
   },
   {
     "distance": 0.6,
     "challange": 1,
     "pace": "04:45",
-    "time": "03:00"
+    "time": "00:30"
   },
   {
     "distance": 0.8,
@@ -311,7 +310,9 @@ const TIME_TABLE = [
     "time": "44:57"
   }
 ];
+const delta = 1;
 
+let settings = {'bg': '#0d0', 'fg': '#fff'};
 var index = 0;
 
 function getTimeTable(index) {
@@ -339,17 +340,25 @@ Graphics.prototype.setFontLECO1976Regular = function() {
   );
 }
 
-// An object to cache our date & time values,
-// to minimize computations in the draw handler.
+Graphics.prototype.setFontLECO1976Regular66 = function() {
+  // Actual height 47 (46 - 0)
+  // 1 BPP
+  return this.setFontCustom(
+    E.toString(require('heatshrink').decompress(atob('AEkP/gHFgf/CA3/4AHFn/wEG9/EAwAZ8AxG/AHFg/+JI3/wBZF/4gFv//EAv//4gEMAIABEAcHA4QgDFwIABEAYuBAAKDDFwIPFAwQfDFwarEA4Y3DE4RHEG4SyEEARfHN4ogBXIqHHgaXGgDhGgE4bD4APQYhlDA4hOCVYaNDXYZ2DEHTyEEAYHCj4gDXgUHEAfwAYMBEH4gFUn4gRv4gGAFDF/EBbF/EDAAEMQQAEQYYADQYYADQYYgtAEh/Bj6DGx6kG8akG/CkG/yeCEFvDEAwaB8CkD//An/4Ugc/+EP/ykDh/8DQOAUgQg/EAZoCEAiJCEAiJCEAiJDEGkfA4P8EAYAoUgQ1CUggDBUgoDBUgoYCYoogHc3Ag/EDL3CAAIgDAAYgDAAYgDBAggzv4gGAFBBDI4IABIIZHBAARHFMQhHEEGKDCEAgaCRIwaBEAY7DEAg7CEH4gGQYR9EQYZ9DQYZ9EA4g7CEGEBEA4AoIIX+AYJBFx5iG8ZiG/BiGEGPhEAnAcwMHEAfwh/+TAIgC/gaBwF/EAYaB8EfEH4gHPoQgEOoQgFAAIgFTwQgyg/8NAIgDAFIuCIIoIEMQQHEMQYADMQYg5cxP4g6kF/yeBYouAv4g/EA6DFEAKDFEAKDFEASDHEFsf+EHEAgAYEwIcFI4I9BAAZBBHoQADHoYg2LQyDBEA3wA4qkBA4og/EBYADQ4TsCcwiDBAAaHBEAIADVAQgwAFBi5EEP8DQOAv4gDDQPgj4gD4E//EHEAfwh/+gIg/EAqk/ECN/EAwAoIIakFI4SkEI4SkEI4SkHEGzmH/gaBEAoaBEAvAn4g/EA73EQYp9CQYh9CQYieCEGRuBEAwApUoKYDAAKrBTAYDBVYQTDBgROBXIIgDJwIgtQgIDBj4gDAA4'))),
+    46,
+    atob("EBsnIicnJycnJCcnEA=="),
+    66|65536
+  );
+}
 
 function drawLock() {
   if (Bangle.isLocked()){
-    g.setColor('#fff');
-    //g.drawImage(atob("DhABH+D/wwMMDDAwwMf/v//4f+H/h/8//P/z///f/g=="), w-20, 0);
-    g.drawString('L', w-20, 10);
+    g.setColor('#f00');
+    g.drawImage(require("heatshrink").decompress(atob("kEgwYHEgP//+ACY9/BYP+BQ0DBQIAB4ALFj4LD/ALFCgQaCBY3wAYMPBYsHBYvgBYpQCKwILzIIIAGJogLx/CqDBYynDBYzUCbQQLREZYL8U9bpBAAz1BA==")), 
+    w-36, h-36);
   } else {
     g.setColor('#000');
-    g.fillRect(w-20, 0, w, 28);
+    g.fillRect(w-36, h-36, w, h);
   }
 }
 
@@ -357,67 +366,155 @@ Bangle.on('lock', function(on) {
   drawLock();
 });
 
-// clear the screen
-g.clear();
+let slopeX = w-74;
+let slopeY = h/2+4;
 
-let settings = {'bg': '#0d0', 'fg': '#fff'};
+function setSlopeColor(challange) {
+  if (Math.abs(challange) == 1)
+    g.setColor('#0F0');
+  else if (Math.abs(challange) == 2) 
+    g.setColor('#00F');
+  else if (Math.abs(challange) >= 3)
+    g.setColor('#F00');
+}
 
-// redraw the screenay
+function drawSlope(challange) {
+  if (challange == 0) {
+    g.setColor('#000');
+    g.fillRect(w-48, h/2, w, h/2+48);
+  } else {
+    if (challange > 0) {
+      g.setColor('#fff');
+      g.fillPoly([
+        slopeX+42, slopeY+6,
+        slopeX+4, slopeY+14,
+        slopeX+34, slopeY+44
+      ]);
+
+      setSlopeColor(challange);
+      g.fillPoly([
+        slopeX+40, slopeY+8,
+        slopeX+8, slopeY+16,
+        slopeX+26, slopeY+22,
+        slopeX+32, slopeY+40
+      ]);
+    } else {
+      g.setColor('#fff');
+      g.fillPoly([
+        slopeX+42, slopeY+42, //3
+        slopeX+4, slopeY+34, // 1
+        slopeX+34, slopeY+4 //2
+      ]);
+
+      setSlopeColor(challange);
+      g.fillPoly([
+        slopeX+40, slopeY+40, // 4
+        slopeX+8, slopeY+32, // 1
+        slopeX+26, slopeY+26, // 2
+        slopeX+32, slopeY+8  // 3
+      ]);
+    }
+  }
+}
+
+function formatSeconds(seconds) {
+  return new Date(1000 * seconds).toISOString().substring(14, 19);
+}
+
+function stringToSeconds(string) {
+  return parseInt(string.substring(0, 2)) * 60 + parseInt(string.substring(3, 5)); 
+}
+
+// redraw the screen
 function draw() {
-  g.clear();
   g.setColor('#000');
   g.fillRect(0, 0, w, h);
-  
   g.setColor(settings.fg);
-  
-  // Time
-  //g.setFontLECO1976Regular22();
-  
+
+  let elapsed = (new Date().getTime() - start) / 1000;
+  drawElapsedTime(elapsed);
+
   var entry1 = getTimeTable(index);
 
-  //g.setFontLECO1976Regular22();
-  //g.setFontAlign(0, -1).drawString(`KM ${indexToKm(index)} - ${indexToKm(index+2)}`, w/2, 10);
-
-  g.setFontLECO1976Regular();
+  g.setFontLECO1976Regular66();
   let y = 30;
   g.setFontAlign(-1, -1);
   g.drawString(entry1.pace, 0, y);
   g.setFontLECO1976Regular22();
-  g.drawString(`${indexToKm(index)}`, 0, y+40);
-  g.drawString(entry1.time, w/2, y+40);
 
+  g.setFontAlign(1, -1);
+  g.drawString(`${indexToKm(index)} KM`, w, 0);
+
+  g.setFontAlign(-1, -1);
   var entry2 = getTimeTable(index+1);
   y += 80;
-  g.setFontLECO1976Regular();
-  g.drawString(entry2.pace, 0, y);
   g.setFontLECO1976Regular22();
-  g.drawString(`${indexToKm(index+1)}`, 0, y+40);
-  g.drawString(entry2.time, w/2, y+40);
+  g.drawString(entry2.time, 0, y);
+  g.setFontLECO1976Regular();
+  g.drawString(entry2.pace, 0, y+30);
+
+  drawSlope(entry2.challange);
 
   drawLock();
 }
 
-// clear the screen
-g.clear();
-
-const delta = 2;
-
 // Respond to user input
-Bangle.setUI({mode: "updown"}, function(dir) {
-  if (dir > 0) {
-    index -= delta;
-    if (index < 0)
-      index = 0;
-    draw();
-  } else if (dir < 0) {
-    index += delta;
-    if (index > 48)
-      index = 48;
-    draw();
+Bangle.setUI({mode: "custom",
+  btn : ()=> {
+    //Bangle.setUI(); // remove old handler
+    if (timerInterval === undefined) {
+      startTimer();
+    }
+    console.log('Button pressed');
+  },
+  swipe : (dir) => {
+    if (dir > 0) {
+      index -= delta;
+      if (index < 0)
+        index = 0;
+      draw();
+    } else if (dir < 0) {
+      index += delta;
+      if (index > 48)
+        index = 48;
+      draw();
+    }
   }
 });
 
+// clear the screen
+g.clear();
+
 console.log('Start');
+
+let start = undefined;
+
+function drawElapsedTime(elapsed) {
+  g.setColor('#000');
+  g.fillRect(0, 0, w/2, 22);
+
+  g.setColor('#fff');
+  g.setFontLECO1976Regular22();
+  g.setFontAlign(-1, -1);
+  g.drawString(formatSeconds(elapsed), 0, 0);
+}
+
+let timerInterval = undefined;
+
+function startTimer() {
+  start = new Date().getTime();
+
+  timerInterval = setInterval(function() {
+    let elapsed = (new Date().getTime() - start) / 1000;
+    drawElapsedTime(elapsed);
+  
+    let entry = getTimeTable(index+1);
+    if (elapsed > stringToSeconds(entry.time)) {
+      index++;
+      draw();
+    }
+  }, 500);
+}
 
 // First draw...
 draw();
