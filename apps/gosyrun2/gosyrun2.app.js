@@ -355,7 +355,7 @@ function drawLock() {
   if (Bangle.isLocked()){
     g.setColor('#f00');
     g.drawImage(require("heatshrink").decompress(atob("kEgwYHEgP//+ACY9/BYP+BQ0DBQIAB4ALFj4LD/ALFCgQaCBY3wAYMPBYsHBYvgBYpQCKwILzIIIAGJogLx/CqDBYynDBYzUCbQQLREZYL8U9bpBAAz1BA==")), 
-    w-36, h-36);
+      w-36, h-36);
   } else {
     g.setColor('#000');
     g.fillRect(w-36, h-36, w, h);
@@ -447,13 +447,15 @@ function draw() {
 
   g.setFontAlign(-1, -1);
   var entry2 = getTimeTable(index+1);
-  y += 80;
-  g.setFontLECO1976Regular22();
-  g.drawString(entry2.time, 0, y);
-  g.setFontLECO1976Regular();
-  g.drawString(entry2.pace, 0, y+30);
+  if (entry2) {
+    y += 80;
+    g.setFontLECO1976Regular22();
+    g.drawString(entry2.time, 0, y);
+    g.setFontLECO1976Regular();
+    g.drawString(entry2.pace, 0, y+30);
 
-  drawSlope(entry2.challange);
+    drawSlope(entry2.challange);
+  }
 
   drawLock();
 }
@@ -499,17 +501,45 @@ function drawElapsedTime(elapsed) {
   g.drawString(formatSeconds(elapsed), 0, 0);
 }
 
+function drawScreenFinish() {
+  g.setColor('#000');
+  g.fillRect(0, 0, w, h);
+  g.setColor(settings.fg);
+
+  let y = 48;
+  g.setFontLECO1976Regular22();
+
+  g.setFontAlign(0, -1);
+  g.drawString(`YOU ARE`, w/2, y);
+  g.drawString(`A WINNER!`, w/2, y+22);
+
+  y += 48;
+
+  g.drawImage(require("heatshrink").decompress(atob("mEwwcBkmSpISLBwQCBpETps06YCGmEECIkatOmzQCHCIlJgUIkGCAQUBmAFCGolJkFhw0YAQemjFgKwYCDpu27dtAQlshIODwBgBvPnzwCFuBtCCIMNmnShojHsBuBoAmBtJBBhIjHuILBtEJkVAFAIjD2gjDBYUMgMgsAmBwIgC4EeI4ZEBtOBklMCIONEYWE4YjCKwQOCEYWRIIeAuIFBsQRBBwQUCyM27EAmnQgE27cCEYg4CEYOcagVgg+cCIJWDxshkmQEYKVBRIIjDkdAEwOB0K5Bk+eagOagIpBiVJkVgCIUwCIIdBsIjBSoPYCIMDNwWR0ARBg5rB00aEYkYLgWQmEEyUm7dBkEDEYPAiVIyARCyUGgAjCuEHgAjBzESogCBCIUEDQNG7dsJQNNEYILDCIOTg2YgVHfYsAyAvBEYcAycAoD4DAQPAO4IREg8asEGEY1hwEcCIckwFNkAjE2kDpkE0AjEzkB00eEYfmFgILBEYmygCMBEYegwEJlgjFRgMAgAjDwAFCzmSEYnIhMkWAPboAFBhcs2ARDEYQLBwBBBcYQjLbQKtDEYJHHCIRlEEYRrFEYc2EZcAEZFxo4jEgEEgAjHgEIdIpoBEY5uBCIgCFEYgLGAQrRFARYjk6AROyAjBgQRMgEBm3bgCGBCJNIjjRBz1x4UACJNE7dt2wCC4ARJg0YsOGAQZcJIQIAFCIg=")), 
+      w/2-24, y);
+
+  let elapsed = (new Date().getTime() - start) / 1000;
+  drawElapsedTime(elapsed);
+
+  drawLock();
+}
+
 let timerInterval = undefined;
 
 function startTimer() {
   start = new Date().getTime();
 
   timerInterval = setInterval(function() {
+    if (index >= TIME_TABLE.length -1) {
+      drawScreenFinish();
+      return;
+    }
+
     let elapsed = (new Date().getTime() - start) / 1000;
     drawElapsedTime(elapsed);
-  
+    
     let entry = getTimeTable(index+1);
-    if (elapsed > stringToSeconds(entry.time)) {
+    if (entry && elapsed > stringToSeconds(entry.time)) {
       index++;
       draw();
     }
