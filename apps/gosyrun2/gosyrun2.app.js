@@ -13,19 +13,19 @@ const TIME_TABLE = [
     "distance": 0.2,
     "challange": 2,
     "pace": "05:00",
-    "time": "00:10"
+    "time": "01:00"
   },
   {
     "distance": 0.4,
     "challange": 2,
     "pace": "05:00",
-    "time": "00:20"
+    "time": "02:00"
   },
   {
     "distance": 0.6,
     "challange": 1,
     "pace": "04:45",
-    "time": "00:30"
+    "time": "03:00"
   },
   {
     "distance": 0.8,
@@ -542,6 +542,7 @@ function startTimer() {
     if (entry && elapsed > stringToSeconds(entry.time)) {
       index++;
       draw();
+      Bangle.buzz(500);
     }
   }, 500);
 }
