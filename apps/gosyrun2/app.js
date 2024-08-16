@@ -343,14 +343,14 @@ Graphics.prototype.setFontLECO1976Regular = function() {
   );
 }
 
-Graphics.prototype.setFontLECO1976Regular66 = function() {
-  // Actual height 47 (46 - 0)
+Graphics.prototype.setFontLECO1976Regular70 = function() {
+  // Actual height 50 (49 - 0)
   // 1 BPP
   return this.setFontCustom(
-    E.toString(require('heatshrink').decompress(atob('AEkP/gHFgf/CA3/4AHFn/wEG9/EAwAZ8AxG/AHFg/+JI3/wBZF/4gFv//EAv//4gEMAIABEAcHA4QgDFwIABEAYuBAAKDDFwIPFAwQfDFwarEA4Y3DE4RHEG4SyEEARfHN4ogBXIqHHgaXGgDhGgE4bD4APQYhlDA4hOCVYaNDXYZ2DEHTyEEAYHCj4gDXgUHEAfwAYMBEH4gFUn4gRv4gGAFDF/EBbF/EDAAEMQQAEQYYADQYYADQYYgtAEh/Bj6DGx6kG8akG/CkG/yeCEFvDEAwaB8CkD//An/4Ugc/+EP/ykDh/8DQOAUgQg/EAZoCEAiJCEAiJCEAiJDEGkfA4P8EAYAoUgQ1CUggDBUgoDBUgoYCYoogHc3Ag/EDL3CAAIgDAAYgDAAYgDBAggzv4gGAFBBDI4IABIIZHBAARHFMQhHEEGKDCEAgaCRIwaBEAY7DEAg7CEH4gGQYR9EQYZ9DQYZ9EA4g7CEGEBEA4AoIIX+AYJBFx5iG8ZiG/BiGEGPhEAnAcwMHEAfwh/+TAIgC/gaBwF/EAYaB8EfEH4gHPoQgEOoQgFAAIgFTwQgyg/8NAIgDAFIuCIIoIEMQQHEMQYADMQYg5cxP4g6kF/yeBYouAv4g/EA6DFEAKDFEAKDFEASDHEFsf+EHEAgAYEwIcFI4I9BAAZBBHoQADHoYg2LQyDBEA3wA4qkBA4og/EBYADQ4TsCcwiDBAAaHBEAIADVAQgwAFBi5EEP8DQOAv4gDDQPgj4gD4E//EHEAfwh/+gIg/EAqk/ECN/EAwAoIIakFI4SkEI4SkEI4SkHEGzmH/gaBEAoaBEAvAn4g/EA73EQYp9CQYh9CQYieCEGRuBEAwApUoKYDAAKrBTAYDBVYQTDBgROBXIIgDJwIgtQgIDBj4gDAA4'))),
+    E.toString(require('heatshrink').decompress(atob('AE0D/+ABAsP/wRGn/4BA3/8Ai/AD0cQY/wJw/AA4sf/5WH/gYG/4iFDAIiFDAIABDAwiFDAQiEDAYiEA4YZDDAacDDAitDv4YGCAi1Dh4YGWQJLGHYbOEEQTfFEQKHGEQLnGfBAYGEQIYGAFiCDVwaLEaIaLDQoiLCaIoi9/DwDEQauCgIiEUwUHEQf+DIUfEX4ibaP4ieAFTR/ETDR/ETwAENAYAERYYADRYYAERYYiwn4iGAEyLB/ifDVwfwVw/DVw7CDVwYi88EP/yuDEQOAn/4VwYOBCYSuDBwITCaIYi/ES6ACEQoICEQoABEQwABEXn8EQYArVwQABVwoICVwoDBVwwIBaIwiHenYi/EWP/AAYiDAAgiDAAgiCA4gi/AFZFDwAIDA4SfBAARFD/AIDNAfgEX4TEEQgTDEQg2CEQg2DEX4icQQQAC4CLEAASuFAAP8VwoAB+Ai+AFYxC/0fIo34Io/jNA+PNA3+BgIi3/D0Cv4iD8EP/0BEQmACYMHEQf+CYUfEX4idQoQiFAAIiGAAIiFBAQi/AFQxDIooHEIoYIENAYAENAYi8ehX4g6uG8EfVw2Av4i/ETqLFEQSLHVwwiBVwoi7ADQ4DAAYxBHAQADGII4CAAZUBHAwi9/BoH8AiHwAiGVwIi/ESoAETAIiBAAiLDAAaYCVwIADTAQi8AFaL/EUH4CYOAv4iD8EP/0BEQmACYMHEQf+CYUfEX4ibaP4ieAFRFDVwoICVwoICVwoABVxAi6ehGAn4iF/wTCEQn4CYQi/ETaCCAAKLGAAKuFAASuFAAQi+AFiQDSwIICWYaqBBASzCVQQHBWYbNCEXwAI'))),
     46,
-    atob("EBsnIicnJycnJCcnEA=="),
-    66|65536
+    atob("EBwpJCkpKSkpJikpEA=="),
+    70|65536
   );
 }
 
@@ -372,14 +372,20 @@ Bangle.on('lock', function(on) {
 });
 
 function setSlopeColor(challange) {
-  if (Math.abs(challange) == 1)
-    g.setColor('#0F0');
-  else if (Math.abs(challange) == 2) 
-    g.setColor('#00F');
-  else if (Math.abs(challange) >= 3)
-    g.setColor('#F00');
-  else
-    g.setColor('#0F0');
+  if (challange == 1)
+    g.setColor('#FFFF00');
+  else if (challange == 2) 
+    g.setColor('#FF8000');
+  else if (challange >= 3)
+    g.setColor('#FF0000');
+  else if (challange <= -3)
+    g.setColor('#00FF80');
+  else if (challange == -2)
+    g.setColor('#00FF00');
+  else if (challange == -1)
+    g.setColor('#80FF00');
+  else if (challange == 0)
+    g.setColor('#80FF00');
 }
 
 let slopeY = h-48;
@@ -433,10 +439,10 @@ function draw() {
 
   var entry1 = getTimeTable(index);
 
-  g.setFontLECO1976Regular66();
+  g.setFontLECO1976Regular70();
   let y = 30;
   g.setFontAlign(-1, -1);
-  g.drawString(entry1.pace, 0, y);
+  g.drawString(entry1.pace, -2, y);
   g.setFontLECO1976Regular22();
 
   g.setFontAlign(1, -1);
@@ -476,8 +482,8 @@ Bangle.setUI({mode: "custom",
       draw();
     } else if (dir < 0) {
       index += delta;
-      if (index > 48)
-        index = 48;
+      if (index > TIME_TABLE.length-1)
+        index = TIME_TABLE.length-1;
       draw();
     }
   }
