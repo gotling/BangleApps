@@ -530,6 +530,7 @@ function startTimer() {
   timerInterval = setInterval(function() {
     if (index >= TIME_TABLE.length -1) {
       drawScreenFinish();
+      lockPosition.y = h-70;
       return;
     }
 
@@ -538,9 +539,11 @@ function startTimer() {
     
     let entry = getTimeTable(index+1);
     if (entry && elapsed > stringToSeconds(entry.time)) {
+      if (getTimeTable(index).pace != entry.pace)
+        Bangle.buzz(500);
+
       index++;
       draw();
-      Bangle.buzz(500);
     }
   }, 500);
 }
