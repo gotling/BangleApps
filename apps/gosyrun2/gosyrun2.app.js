@@ -316,6 +316,9 @@ let settings = {'bg': '#0d0', 'fg': '#fff'};
 var index = 0;
 
 function getTimeTable(index) {
+  if (index >= TIME_TABLE.length)
+    return {challange: 0}
+
   return TIME_TABLE[index];
 }
 
@@ -351,23 +354,22 @@ Graphics.prototype.setFontLECO1976Regular66 = function() {
   );
 }
 
+const lockPosition = {x: w-36, y: h-90};
+
 function drawLock() {
   if (Bangle.isLocked()){
     g.setColor('#f00');
     g.drawImage(require("heatshrink").decompress(atob("kEgwYHEgP//+ACY9/BYP+BQ0DBQIAB4ALFj4LD/ALFCgQaCBY3wAYMPBYsHBYvgBYpQCKwILzIIIAGJogLx/CqDBYynDBYzUCbQQLREZYL8U9bpBAAz1BA==")), 
-      w-36, h-36);
+      lockPosition.x, lockPosition.y);
   } else {
     g.setColor('#000');
-    g.fillRect(w-36, h-36, w, h);
+    g.fillRect(lockPosition.x, lockPosition.y, w, lockPosition.y+36);
   }
 }
 
 Bangle.on('lock', function(on) {
   drawLock();
 });
-
-let slopeX = 70;
-let slopeY = h-72;
 
 function setSlopeColor(challange) {
   if (Math.abs(challange) == 1)
@@ -376,42 +378,39 @@ function setSlopeColor(challange) {
     g.setColor('#00F');
   else if (Math.abs(challange) >= 3)
     g.setColor('#F00');
+  else
+    g.setColor('#0F0');
 }
 
-function drawSlope(challange) {
-  if (challange == 0) {
-    g.setColor('#000');
-    g.fillRect(w-48, h/2, w, h/2+48);
-  } else {
-    if (challange > 0) {
-      g.setColor('#fff');
-      g.fillPoly([
-        slopeX, slopeY+24,
-        slopeX+48, slopeY+24,
-        slopeX+48, slopeY
-      ]);
+let slopeY = h-48;
 
-      setSlopeColor(challange);
-      g.fillPoly([
-        slopeX+8, slopeY+22,
-        slopeX+46, slopeY+22,
-        slopeX+46, slopeY+4,
-      ]);
-    } else {
-      g.setColor('#fff');
-      g.fillPoly([
-        slopeX, slopeY,
-        slopeX, slopeY+24,
-        slopeX+48, slopeY+24
-      ]);
+const slopeCount = 3;
+const slopeHeight = 48;
 
-      setSlopeColor(challange);
-      g.fillPoly([
-        slopeX+2, slopeY+4,
-        slopeX+2, slopeY+22,
-        slopeX+40, slopeY+22,
-      ]);
+function drawSlopeSection(position, start, stop) {
+  let localX = Math.round(w/slopeCount * position);
+  setSlopeColor(stop);
+
+  g.fillPoly([
+    localX, h,
+    localX, slopeY+48/2-slopeHeight/2/3*start,
+    localX+w/slopeCount, slopeY+48/2-slopeHeight/2/3*stop,
+    localX+w/slopeCount, h,
+  ]);
+}
+
+function drawFullWidthSlope() {
+  for (let eIndex = 0; eIndex < slopeCount; eIndex++) {
+    let start, stop;
+
+    if (index == 0)
+      start = stop = getTimeTable(index).challange;
+    else {
+      start = getTimeTable(index + eIndex - 1).challange;
+      stop = getTimeTable(index + eIndex).challange;
     }
+
+    drawSlopeSection(eIndex, start, stop);
   }
 }
 
@@ -446,14 +445,16 @@ function draw() {
   g.setFontAlign(-1, -1);
   var entry2 = getTimeTable(index+1);
   if (entry2) {
-    y += 80;
-    g.setFontLECO1976Regular22();
-    g.drawString(entry2.time, 0, y);
+    y += 52;
+    //g.setFontLECO1976Regular22();
+    //g.drawString(entry2.time, 0, y);
     g.setFontLECO1976Regular();
-    g.drawString(entry2.pace, 0, y+30);
+    g.drawString(entry2.pace, 0, y+5);
 
-    drawSlope(entry2.challange);
+    //drawSlope(entry2.challange);
   }
+
+  drawFullWidthSlope();
 
   drawLock();
 }
@@ -523,7 +524,6 @@ function drawScreenFinish() {
 }
 
 let timerInterval = undefined;
-
 function startTimer() {
   start = new Date().getTime();
 
