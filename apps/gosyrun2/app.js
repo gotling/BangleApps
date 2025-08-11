@@ -3,312 +3,384 @@ require("FontTeletext5x9Ascii").add(Graphics);
 const h = g.getHeight();
 const w = g.getWidth();
 const TIME_TABLE = [
-  {
-    "distance": 0,
-    "challange": 2,
-    "pace": "05:00",
-    "time": "00:00"
-  },
-  {
-    "distance": 0.2,
-    "challange": 2,
-    "pace": "05:00",
-    "time": "01:00"
-  },
-  {
-    "distance": 0.4,
-    "challange": 2,
-    "pace": "05:00",
-    "time": "02:00"
-  },
-  {
-    "distance": 0.6,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "03:00"
-  },
-  {
-    "distance": 0.8,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "03:57"
-  },
-  {
-    "distance": 1,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "04:48"
-  },
-  {
-    "distance": 1.2,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "05:39"
-  },
-  {
-    "distance": 1.4,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "06:30"
-  },
-  {
-    "distance": 1.6,
-    "challange": -2,
-    "pace": "04:00",
-    "time": "07:21"
-  },
-  {
-    "distance": 1.8,
-    "challange": -2,
-    "pace": "04:00",
-    "time": "08:09"
-  },
-  {
-    "distance": 2,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "08:57"
-  },
-  {
-    "distance": 2.2,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "09:48"
-  },
-  {
-    "distance": 2.4,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "10:39"
-  },
-  {
-    "distance": 2.6,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "11:30"
-  },
-  {
-    "distance": 2.8,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "12:21"
-  },
-  {
-    "distance": 3,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "13:12"
-  },
-  {
-    "distance": 3.2,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "14:09"
-  },
-  {
-    "distance": 3.4,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "15:06"
-  },
-  {
-    "distance": 3.6,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "16:00"
-  },
-  {
-    "distance": 3.8,
-    "challange": 2,
-    "pace": "05:00",
-    "time": "16:57"
-  },
-  {
-    "distance": 4,
-    "challange": 3,
-    "pace": "05:15",
-    "time": "17:57"
-  },
-  {
-    "distance": 4.2,
-    "challange": 4,
-    "pace": "05:30",
-    "time": "19:00"
-  },
-  {
-    "distance": 4.4,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "20:06"
-  },
-  {
-    "distance": 4.6,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "21:03"
-  },
-  {
-    "distance": 4.8,
-    "challange": -2,
-    "pace": "04:00",
-    "time": "21:54"
-  },
-  {
-    "distance": 5,
-    "challange": -2,
-    "pace": "04:00",
-    "time": "22:42"
-  },
-  {
-    "distance": 5.2,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "23:30"
-  },
-  {
-    "distance": 5.4,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "24:21"
-  },
-  {
-    "distance": 5.6,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "25:15"
-  },
-  {
-    "distance": 5.8,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "26:06"
-  },
-  {
-    "distance": 6,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "26:57"
-  },
-  {
-    "distance": 6.2,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "27:51"
-  },
-  {
-    "distance": 6.4,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "28:45"
-  },
-  {
-    "distance": 6.6,
-    "challange": -2,
-    "pace": "04:00",
-    "time": "29:36"
-  },
-  {
-    "distance": 6.8,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "30:24"
-  },
-  {
-    "distance": 7,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "31:18"
-  },
-  {
-    "distance": 7.2,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "32:15"
-  },
-  {
-    "distance": 7.4,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "33:12"
-  },
-  {
-    "distance": 7.6,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "34:03"
-  },
-  {
-    "distance": 7.8,
-    "challange": 1,
-    "pace": "04:45",
-    "time": "35:00"
-  },
-  {
-    "distance": 8,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "35:57"
-  },
-  {
-    "distance": 8.2,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "36:51"
-  },
-  {
-    "distance": 8.4,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "37:45"
-  },
-  {
-    "distance": 8.6,
-    "challange": 2,
-    "pace": "05:00",
-    "time": "38:36"
-  },
-  {
-    "distance": 8.8,
-    "challange": 2,
-    "pace": "05:00",
-    "time": "39:36"
-  },
-  {
-    "distance": 9,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "40:36"
-  },
-  {
-    "distance": 9.2,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "41:30"
-  },
-  {
-    "distance": 9.4,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "42:21"
-  },
-  {
-    "distance": 9.6,
-    "challange": -1,
-    "pace": "04:15",
-    "time": "43:12"
-  },
-  {
-    "distance": 9.8,
-    "challange": 0,
-    "pace": "04:30",
-    "time": "44:03"
-  },
-  {
-    "distance": 10,
-    "challange": -1,
-    "pace": "04:30",
-    "time": "44:57"
-  }
+    {
+        "section": 1,
+        "distance": 0.2,
+        "time": "0:01:00",
+        "recorded_pace": "05:00",
+        "pace": "04:30",
+        "altitude": -1,
+        "challange": -1
+    },
+    {
+        "section": 2,
+        "distance": 0.4,
+        "time": "0:02:01",
+        "recorded_pace": "05:05",
+        "pace": "05:15",
+        "altitude": 6,
+        "challange": 2
+    },
+    {
+        "section": 3,
+        "distance": 0.6,
+        "time": "0:03:06",
+        "recorded_pace": "05:25",
+        "pace": "04:30",
+        "altitude": -1,
+        "challange": -1
+    },
+    {
+        "section": 4,
+        "distance": 0.8,
+        "time": "0:04:07",
+        "recorded_pace": "05:05",
+        "pace": "05:00",
+        "altitude": 4,
+        "challange": 1
+    },
+    {
+        "section": 5,
+        "distance": 1.0,
+        "time": "0:05:07",
+        "recorded_pace": "05:00",
+        "pace": "04:30",
+        "altitude": -1,
+        "challange": -1
+    },
+    {
+        "section": 7,
+        "distance": 1.2,
+        "time": "0:06:06",
+        "recorded_pace": "04:55",
+        "pace": "05:00",
+        "altitude": 2,
+        "challange": 1
+    },
+    {
+        "section": 8,
+        "distance": 1.4,
+        "time": "0:07:05",
+        "recorded_pace": "04:55",
+        "pace": "04:15",
+        "altitude": -6,
+        "challange": -2
+    },
+    {
+        "section": 9,
+        "distance": 1.6,
+        "time": "0:08:00",
+        "recorded_pace": "04:35",
+        "pace": "04:15",
+        "altitude": -9,
+        "challange": -2
+    },
+    {
+        "section": 10,
+        "distance": 1.8,
+        "time": "0:08:58",
+        "recorded_pace": "04:50",
+        "pace": "04:30",
+        "altitude": -1,
+        "challange": -1
+    },
+    {
+        "section": 11,
+        "distance": 2.0,
+        "time": "0:09:55",
+        "recorded_pace": "04:45",
+        "pace": "04:30",
+        "altitude": -3,
+        "challange": -1
+    },
+    {
+        "section": 13,
+        "distance": 2.2,
+        "time": "0:11:03",
+        "recorded_pace": "05:40",
+        "pace": "05:30",
+        "altitude": 15,
+        "challange": 3
+    },
+    {
+        "section": 14,
+        "distance": 2.4,
+        "time": "0:12:02",
+        "recorded_pace": "04:55",
+        "pace": "04:30",
+        "altitude": -4,
+        "challange": -1
+    },
+    {
+        "section": 15,
+        "distance": 2.6,
+        "time": "0:13:10",
+        "recorded_pace": "05:40",
+        "pace": "05:30",
+        "altitude": 21,
+        "challange": 3
+    },
+    {
+        "section": 16,
+        "distance": 2.8,
+        "time": "0:14:16",
+        "recorded_pace": "05:30",
+        "pace": "05:00",
+        "altitude": 2,
+        "challange": 1
+    },
+    {
+        "section": 17,
+        "distance": 3.0,
+        "time": "0:15:18",
+        "recorded_pace": "05:10",
+        "pace": "04:30",
+        "altitude": -3,
+        "challange": -1
+    },
+    {
+        "section": 19,
+        "distance": 3.2,
+        "time": "0:16:17",
+        "recorded_pace": "04:55",
+        "pace": "05:00",
+        "altitude": 3,
+        "challange": 1
+    },
+    {
+        "section": 20,
+        "distance": 3.4,
+        "time": "0:17:18",
+        "recorded_pace": "05:05",
+        "pace": "04:30",
+        "altitude": -2,
+        "challange": -1
+    },
+    {
+        "section": 21,
+        "distance": 3.6,
+        "time": "0:18:17",
+        "recorded_pace": "04:55",
+        "pace": "04:30",
+        "altitude": -4,
+        "challange": -1
+    },
+    {
+        "section": 22,
+        "distance": 3.8,
+        "time": "0:19:22",
+        "recorded_pace": "05:25",
+        "pace": "05:00",
+        "altitude": 1,
+        "challange": 1
+    },
+    {
+        "section": 23,
+        "distance": 4.0,
+        "time": "0:20:23",
+        "recorded_pace": "05:05",
+        "pace": "05:00",
+        "altitude": 4,
+        "challange": 1
+    },
+    {
+        "section": 25,
+        "distance": 4.2,
+        "time": "0:21:19",
+        "recorded_pace": "04:40",
+        "pace": "04:00",
+        "altitude": -14,
+        "challange": -3
+    },
+    {
+        "section": 26,
+        "distance": 4.4,
+        "time": "0:22:16",
+        "recorded_pace": "04:45",
+        "pace": "04:15",
+        "altitude": -6,
+        "challange": -2
+    },
+    {
+        "section": 27,
+        "distance": 4.6,
+        "time": "0:23:19",
+        "recorded_pace": "05:15",
+        "pace": "05:00",
+        "altitude": 3,
+        "challange": 1
+    },
+    {
+        "section": 28,
+        "distance": 4.8,
+        "time": "0:24:14",
+        "recorded_pace": "04:35",
+        "pace": "04:15",
+        "altitude": -7,
+        "challange": -2
+    },
+    {
+        "section": 29,
+        "distance": 5.0,
+        "time": "0:25:18",
+        "recorded_pace": "05:20",
+        "pace": "05:00",
+        "altitude": 4,
+        "challange": 1
+    },
+    {
+        "section": 31,
+        "distance": 5.2,
+        "time": "0:26:21",
+        "recorded_pace": "05:15",
+        "pace": "05:00",
+        "altitude": 3,
+        "challange": 1
+    },
+    {
+        "section": 32,
+        "distance": 5.4,
+        "time": "0:27:25",
+        "recorded_pace": "05:20",
+        "pace": "05:00",
+        "altitude": 1,
+        "challange": 1
+    },
+    {
+        "section": 33,
+        "distance": 5.6,
+        "time": "0:28:24",
+        "recorded_pace": "04:55",
+        "pace": "04:00",
+        "altitude": -15,
+        "challange": -3
+    },
+    {
+        "section": 34,
+        "distance": 5.8,
+        "time": "0:29:24",
+        "recorded_pace": "05:00",
+        "pace": "04:30",
+        "altitude": -4,
+        "challange": -1
+    },
+    {
+        "section": 35,
+        "distance": 6.1,
+        "time": "0:30:25",
+        "recorded_pace": "05:05",
+        "pace": "05:00",
+        "altitude": 3,
+        "challange": 1
+    },
+    {
+        "section": 37,
+        "distance": 6.3,
+        "time": "0:31:28",
+        "recorded_pace": "05:15",
+        "pace": "05:00",
+        "altitude": 4,
+        "challange": 1
+    },
+    {
+        "section": 38,
+        "distance": 6.5,
+        "time": "0:32:27",
+        "recorded_pace": "04:55",
+        "pace": "04:15",
+        "altitude": -6,
+        "challange": -2
+    },
+    {
+        "section": 39,
+        "distance": 6.7,
+        "time": "0:33:27",
+        "recorded_pace": "05:00",
+        "pace": "05:00",
+        "altitude": 4,
+        "challange": 1
+    },
+    {
+        "section": 40,
+        "distance": 6.9,
+        "time": "0:34:30",
+        "recorded_pace": "05:15",
+        "pace": "04:30",
+        "altitude": -2,
+        "challange": -1
+    },
+    {
+        "section": 41,
+        "distance": 7.1,
+        "time": "0:35:33",
+        "recorded_pace": "05:15",
+        "pace": "05:00",
+        "altitude": 2,
+        "challange": 1
+    },
+    {
+        "section": 43,
+        "distance": 7.3,
+        "time": "0:36:34",
+        "recorded_pace": "05:05",
+        "pace": "04:30",
+        "altitude": -1,
+        "challange": -1
+    },
+    {
+        "section": 44,
+        "distance": 7.5,
+        "time": "0:37:38",
+        "recorded_pace": "05:20",
+        "pace": "04:45",
+        "altitude": 0,
+        "challange": 0
+    },
+    {
+        "section": 45,
+        "distance": 7.7,
+        "time": "0:38:40",
+        "recorded_pace": "05:10",
+        "pace": "05:00",
+        "altitude": 4,
+        "challange": 1
+    },
+    {
+        "section": 46,
+        "distance": 7.9,
+        "time": "0:39:47",
+        "recorded_pace": "05:35",
+        "pace": "05:15",
+        "altitude": 7,
+        "challange": 2
+    },
+    {
+        "section": 47,
+        "distance": 8.1,
+        "time": "0:40:50",
+        "recorded_pace": "05:15",
+        "pace": "04:00",
+        "altitude": -11,
+        "challange": -3
+    },
+    {
+        "section": 49,
+        "distance": 8.3,
+        "time": "0:41:56",
+        "recorded_pace": "05:30",
+        "pace": "05:30",
+        "altitude": 14,
+        "challange": 3
+    },
+    {
+        "section": 50,
+        "distance": 8.5,
+        "time": "0:42:59",
+        "recorded_pace": "05:15",
+        "pace": "04:15",
+        "altitude": -8,
+        "challange": -2
+    }
 ];
 const delta = 1;
 
